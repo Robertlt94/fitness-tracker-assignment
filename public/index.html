@@ -5,24 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EzFitness</title>
     <script src="./scripts/script.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./styles/styles.css">
 </head>
 <body>
     <header>
         
     </header>
     <main>
-        <section id="landingPage">
+        <section id="landing-page">
             <div>
-                <h1>Welcoem</h1>
+                <h1>Welcome</h1>
                 <h3>to your</h3>
                 <h1>Personal Fitness Tracker!</h1>
             </div>
-            <div id="userLogin">
+            <!-- Req Logon/Create Popup -->
+            <!-- <div id="user-authentication">
+                <h3>Log into your account to access your workout plan:</h3>
+                <h5>First time? <span><a href="">Create a free account!</a></span></h5>
                 <form action="">
-
+                    <div>
+                        <label for="login-username-input">Username:</label>
+                        <input type="text" id="login-username-input" required>
+                    </div>
+                    <div>
+                        <label for="login-password-input">Password</label>
+                        <input type="password" id="login-password-input" required><br>
+                        <p>Show Password?</p><input type="checkbox">
+                    </div>
+                    <div>
+                        <input type="submit" value="Login">
+                    </div>
                 </form>
             </div>
+            <div id="create-user">
+                <h3>Create a new Account:</h3>
+                <h5>Already have an account? <span><a href="">Login here</a></span></h5>
+                <form action="">
+                    <div>
+                        <label for="create-username-input">Username:</label>
+                        <input type="text" id="create-username-input"><br>
+                        <p></p>
+                        <label for="create-user-first-name">First Name:</label>
+                        <input type="text" id="create-user-last-name"><br>
+                        <label for="create-user-last-name">Last Name:</label>
+                        <input type="text" id="create-user-last-name"><br>
+                        <label for="create-password-input">Password</label>
+                        <input type="password" id="create-password-input" required><br>
+                        <p>Show Password?</p><input type="checkbox">
+                    </div>
+                    <div>
+                        <input type="submit" value="Sign me up!">
+                    </div>
+                </form>
+            </div> -->
+        </section>
+        <section>
+            <!-- Maybe make a carousel? onClick clear/append new information -->
+            <h2>Your Stats:</h2>
+            <nav><a href="">Today</a><a href="">Last Week</a><a href="">Lifetime</a></nav>
+            <!-- Daily Workout Summary -->
+            <div>
+                <h4>Just finished a workout?<br>Track it below!</h4>
+                <form action="">
+                    <div>
+                        <select name="workout-type" id="workout-type-input">
+                            <option value="new-workout">Add a new workout</option>
+                        </select><br>
+                        <input type="text">
+                        
+                    </div>
+                </form>
+                <div>
+
+                </div>
+            </div>
+            <!-- <div>
+                <h4>Last Week's Workout Statistics</h4>
+                <div>
+                    <ul id="last-week-stats">
+                    </ul>
+                </div>
+                <div>
+                    <ul id="last-week-stat-averages">
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <h4>Lifetime Workout Statistics</h4>
+                <div>
+                    <ul id="lifetime-stats">
+                    </ul>
+                </div>
+                <div>
+                    <ul id="lifetime-stat-averages">
+                    </ul>
+                </div>
+            </div> -->
         </section>
     </main>
     <footer>
