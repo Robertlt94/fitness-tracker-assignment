@@ -19,16 +19,27 @@ class Workout{
     }
 }
 
-
-
 // Stretch Goal: Optionally, include a structure to track daily or weekly goals and accomplishments.
 let lastWeekLog = [];
 
+const monday = new Workout('Weight Lifting', '5', '10', '60', 'Hard');
+const tuesday = new Workout('Weight Lifting', '5', '5', '60', 'Medium');
+const wednesday = new Workout('Pushups', '10', '10', '60', 'Hard');
+const thursday = new Workout('Jumping Jacks', '5', '10', '60', 'Easy');
+const friday = new Workout('Pushups', '10', '10', '60', 'Hard');
+const saturday = new Workout('Weight Lifting', '10', '5', '60', 'Medium');
+const sunday = new Workout('Jumping Jacks', '5', '10', '60', 'Easy');
+
+lastWeekLog.push(
+    monday, tuesday, wednesday, thursday, friday, saturday, sunday
+);
+
+
 // function to determine if it's a new week. If week has not changed, do nothing. 
-// If new week, clear data in lastWeekLog, concat currentWeekLog with lastWeekLog, clear currentWeekLog, append new data
+// If new week, clear data in lastWeekLog, concat currentWeekLog with lastWeekLog, clear currentWeekLog, append new info to DOM
 
 let currentDate = new Date();
-console.log(currentDate);
+// console.log(currentDate);
 let daysOfTheWeek = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 let currentDay = daysOfTheWeek[currentDate.getDay()];
 console.log(currentDay);
@@ -38,7 +49,17 @@ let currentYear = currentDate.getFullYear();
 console.log(currentYear)
 
 function weekCheck(){
-    
+    // currently uses monday, but will need formulate a function to determine what 
+    // week it is within the year out of 52 and look for change between week value
+    if(currentDay === "Monday"){
+        lastWeekLog = [];
+        lastWeekLog = concat(currentWeekLog, lastWeekLog);
+        currentWeekLog = [];
+        logWorkout();
+        displayInfo(lastWeekLog, 'last-week-stats')
+    }else{
+        logWorkout();
+    };
 }
 
 
@@ -51,7 +72,7 @@ function displayInfo(array, elementId) {
     update.innerHTML = '';
     array.forEach(arrayList => {
         let arrayListItem = document.createElement('li');
-        arrayListItem.textContent = `${arrayList.name}: I did ${arrayList.sets} of ${arrayList.reps} in ${arrayList.duration} minutes. It was ${arrayList.difficulty}.`;
+        arrayListItem.textContent = `${arrayList.workout}: I did ${arrayList.sets} sets of ${arrayList.reps} in ${arrayList.duration} minutes. Working out on ${arrayList.loggedOn} was ${arrayList.difficulty}.`;
         update.appendChild(arrayListItem);
     });
 }
@@ -64,16 +85,16 @@ function logWorkout() {
     let difficulty;
     let date;
 
-    function findSelectedValue() {
-        let radioCheck = document.getElementsByName('workout-difficulty');
-
-        for(let i=0; i<radioCheck.length; i++){
-            if(radioCheck[i].checked){
-                difficulty = radioCheck[i].value;
+    function checkRadio(){
+        let radioOptions = document.getElementsByName('workout-difficulty');
+        for(let i=0; i<radioOptions.length; i++){
+            if(radioOptions[i].checked){
+                console.log(difficulty = radioOptions[i].value);
             };
         };
+        console.log(difficulty);
     };
-    findSelectedValue(difficulty);
+    checkRadio();
     
     // console.log(name, duration, difficulty, sets, reps);
 
@@ -103,18 +124,24 @@ function addNewWorkout(){
 //total duration, or calories burned (if applicable). Keep in mind these numbers will later need to be displayed.
 
 function calculateTotals(array){
-    // console.log(currentWeekLog);
-    console.log(
-        array.reduce((total, time) => total+time.sets, 0),
-        array.reduce((total, time) => total+time.reps, 0),
-        array.reduce((total, time) => total+time.duration, 0),
-    );
+    // console.log(
+    //     array.reduce((total, time) => total+time.sets, 0),
+    //     array.reduce((total, time) => total+time.reps, 0),
+    //     array.reduce((total, time) => total+time.duration, 0),
+    // );
+
+
+
+
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     
+    displayInfo(currentWeekLog, 'current-log');
+    displayInfo(lastWeekLog, 'last-week-stats');
+
     document.getElementById('log-this-workout').onclick = () => {
-        logWorkout();
+        weekCheck();
         calculateTotals(currentWeekLog);
     };
 });
