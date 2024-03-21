@@ -2,32 +2,45 @@
 // Stretch Goal: 
 // Optionally, include a structure to track daily or weekly goals and accomplishments.
 
-let currentWeekLog = [
-    // {
-        // name: workoutType,
-        // duration: workoutDuration,
-        // intensity: workoutdifficulty
-    // }
-];
+let currentWeekLog = [];
 
 // **Workout Class:**
 // Define a `Workout` class with properties for exercise details and a method to display a summary of the workout session. 
 // This will be used to log exercise sessions.
 
 class Workout{
-    constructor(name, sets, reps, duration, difficulty){
+    constructor(name, sets, reps, duration, difficulty, date = new Date()){
         this.workout = name;
         this.sets = sets;
         this.reps = reps;
         this.duration = duration;
         this.difficulty = difficulty;
+        this.loggedOn = date;
     }
 }
 
 
 
-//Stretch Goal: Optionally, include a structure to track daily or weekly goals and accomplishments.
+// Stretch Goal: Optionally, include a structure to track daily or weekly goals and accomplishments.
 let lastWeekLog = [];
+
+// function to determine if it's a new week. If week has not changed, do nothing. 
+// If new week, clear data in lastWeekLog, concat currentWeekLog with lastWeekLog, clear currentWeekLog, append new data
+
+let currentDate = new Date();
+console.log(currentDate);
+let daysOfTheWeek = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+let currentDay = daysOfTheWeek[currentDate.getDay()];
+console.log(currentDay);
+// let currentWeek = currentDate.getWeekNumber();
+// console.log(currentWeek);
+let currentYear = currentDate.getFullYear();
+console.log(currentYear)
+
+function weekCheck(){
+    
+}
+
 
 let lifeTimeStats = [];
 
@@ -49,6 +62,7 @@ function logWorkout() {
     let reps = Number(document.getElementById("workout-reps-input").value);
     let duration = Number(document.getElementById("workout-duration-input").value);
     let difficulty;
+    let date;
 
     function findSelectedValue() {
         let radioCheck = document.getElementsByName('workout-difficulty');
@@ -72,7 +86,7 @@ function logWorkout() {
     // };
 
     // since Workout class was introduced
-    const log = new Workout(name, sets, reps, duration, difficulty);
+    const log = new Workout(name, sets, reps, duration, difficulty, date);
 
     currentWeekLog.push(log);
     // console.log(currentWeekLog);
