@@ -10,6 +10,21 @@ let currentWeekLog = [
     // }
 ];
 
+// **Workout Class:**
+// Define a `Workout` class with properties for exercise details and a method to display a summary of the workout session. 
+// This will be used to log exercise sessions.
+
+class Workout{
+    constructor(name, sets, reps, duration, difficulty){
+        this.workout = name;
+        this.sets = sets;
+        this.reps = reps;
+        this.duration = duration;
+        this.difficulty = difficulty;
+    }
+}
+
+
 
 //Stretch Goal: Optionally, include a structure to track daily or weekly goals and accomplishments.
 let lastWeekLog = [];
@@ -30,6 +45,8 @@ function displayInfo(array, elementId) {
 
 function logWorkout() {
     let name = document.getElementById("workout-type-input").value;
+    let sets = Number(document.getElementById("workout-sets-input").value);
+    let reps = Number(document.getElementById("workout-reps-input").value);
     let duration = Number(document.getElementById("workout-duration-input").value);
     let difficulty;
 
@@ -43,19 +60,19 @@ function logWorkout() {
         };
     };
     findSelectedValue(difficulty);
-
-    let sets = Number(document.getElementById("workout-sets-input").value);
-    let reps = Number(document.getElementById("workout-reps-input").value);
     
     // console.log(name, duration, difficulty, sets, reps);
 
-    let log = {
-        name: name,
-        duration: duration,
-        difficulty: difficulty,
-        sets: sets,
-        reps: reps
-    };
+    // let log = {
+    //     name: name,
+    //     duration: duration,
+    //     difficulty: difficulty,
+    //     sets: sets,
+    //     reps: reps
+    // };
+
+    // since Workout class was introduced
+    const log = new Workout(name, sets, reps, duration, difficulty);
 
     currentWeekLog.push(log);
     // console.log(currentWeekLog);
@@ -72,10 +89,11 @@ function addNewWorkout(){
 //total duration, or calories burned (if applicable). Keep in mind these numbers will later need to be displayed.
 
 function calculateTotals(array){
+    // console.log(currentWeekLog);
     console.log(
-        array.reduce((total, time) => total+time.duration, 0),
         array.reduce((total, time) => total+time.sets, 0),
         array.reduce((total, time) => total+time.reps, 0),
+        array.reduce((total, time) => total+time.duration, 0),
     );
 }
 
