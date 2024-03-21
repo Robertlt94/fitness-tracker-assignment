@@ -5,19 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EzFitness</title>
     <script src="./scripts/script.js"></script>
+    <script src="./scripts/userData.js"></script>
     <link rel="stylesheet" href="./styles/styles.css">
 </head>
 <body>
     <header>
-        
+        <!-- Does nothing at the moment, but will add pages later -->
+        <nav><img src="./images/fitness-tracker-logo-htg.png" alt="kettlebell weight logo"><a href="">My Profile</a><a href="">About Us</a><a href="">Upgrade</a><a href="">Contact Us</a></nav>
     </header>
     <main>
-        <section id="landing-page">
-            <div>
-                <h1>Welcome</h1>
-                <h3>to your</h3>
-                <h1>Personal Fitness Tracker!</h1>
-            </div>
+        <section id="welcome-container">
+            <h1>Welcome!</h1>
+            <h2>Let's start tracking your workouts!</h2>
             <!-- Req Logon/Create Popup -->
             <!-- <div id="user-authentication">
                 <h3>Log into your account to access your workout plan:</h3>
@@ -59,27 +58,66 @@
                 </form>
             </div> -->
         </section>
-        <section>
+        <section class="main-content">
             <!-- Maybe make a carousel? onClick clear/append new information -->
-            <h2>Your Stats:</h2>
-            <nav><a href="">Today</a><a href="">Last Week</a><a href="">Lifetime</a></nav>
+            <h2>Today</h2>
             <!-- Daily Workout Summary -->
-            <div>
-                <h4>Just finished a workout?<br>Track it below!</h4>
-                <form action="">
-                    <div>
-                        <select name="workout-type" id="workout-type-input">
-                            <option value="new-workout">Add a new workout</option>
-                        </select><br>
-                        <input type="text">
-                        
-                    </div>
-                </form>
+            <h4>Just finished a workout?</h4>
+            <h4>Tell us about it below:</h4>
+            <div id="add-new-log">
                 <div>
-
+                    <!--<label for="workout-type-input">Workout:</label>
+                    <input name="workout-type-input" id="workout-type-input" select required>
+                    <datalist id="workout-types">
+                        <option value="Weight Lifting"></option>
+                        <option value="Pushups"></option>
+                        <option value="Running"></option>
+                    </datalist> -->
+                    <label for="workout-type-input">Workout:</label>
+                    <select name="workout-type-input" id="workout-type-input" required>
+                        <option value="Weight Lifting">Weight Lifting</option>
+                        <option value="Pushups">Pushups</option>
+                        <option value="Running">Jumping Jacks</option>
+                    </select>
                 </div>
+                <div>
+                    <label for="workout-duration-input">Duration:</label>
+                    <input type="number" id="workout-duration-input" required>
+                </div>
+                <div>
+                    <p id="workout-difficulty">Difficulty:
+                        <input type="radio" id="easy" name="workout-difficulty" value="Easy" required>
+                        Easy
+                    </label>
+                    <label for="workout-difficulty">
+                        <input type="radio" id="medium" name="workout-difficulty" value="Medium">
+                        Medium
+                    </label>
+                    <label for="workout-difficulty">
+                        <input type="radio" id="hard" name="workout-difficulty" value="Hard">
+                        Hard
+                    </label></p>
+                </div>
+                <div>
+                    <label for="workout-sets-input">Sets:</label>
+                    <input type="number" id="workout-sets-input" name="workout-sets-input" required>
+                </div>
+                <div>
+                    <label for="workout-reps-input">Reps:</label>
+                    <input type="number" id="workout-reps-input" name="workout-reps-input" required>
+                </div>
+                <button id="log-this-workout">Submit</button>
             </div>
-            <!-- <div>
+            <div>
+                <h5>This Week's Workout:</h5>
+                <ul id="current-log">
+
+                </ul>
+            </div>
+        </section>
+        <section class="main-content">
+            <h2>Last Week</h2>
+            <div id="last-week-log-tab">
                 <h4>Last Week's Workout Statistics</h4>
                 <div>
                     <ul id="last-week-stats">
@@ -90,21 +128,26 @@
                     </ul>
                 </div>
             </div>
-            <div>
+        </section>
+        <section class="main-content">
+            <h2>Lifetime</h2>
+            <div id="lifetime-log-tab">
                 <h4>Lifetime Workout Statistics</h4>
                 <div>
                     <ul id="lifetime-stats">
                     </ul>
                 </div>
                 <div>
-                    <ul id="lifetime-stat-averages">
+                    <ul id="lifetime-stats">
                     </ul>
                 </div>
-            </div> -->
+            </div>
         </section>
     </main>
     <footer>
-
+        <h4>Tecnical Issues?</h4>
+        <h5>Email us at: tech.help@fittrack.com</h5>
+        <img src="./images/fitness-tracker-logo-htg.png" alt="kettlebell weight logo">
     </footer>
 </body>
 </html>
