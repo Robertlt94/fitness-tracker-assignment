@@ -41,11 +41,11 @@ let currentDate = new Date();
 // console.log(currentDate);
 let daysOfTheWeek = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 let currentDay = daysOfTheWeek[currentDate.getDay()];
-console.log(currentDay);
+// console.log(currentDay);
 // let currentWeek = currentDate.getWeekNumber();
 // console.log(currentWeek);
 let currentYear = currentDate.getFullYear();
-console.log(currentYear)
+// console.log(currentYear)
 
 // currently uses monday, but will need formulate a function to determine what 
 // week it is within the year out of 52 and look for change between week value
@@ -78,7 +78,7 @@ function displayInfo(array, elementId) {
 }
 
 function displayTotals(array, elementId){
-    console.log('in displayTotals')
+    // console.log('in displayTotals')
     let update = document.getElementById(elementId);
     update.innerHTML = '';
     array.forEach(arrayList => {
@@ -100,10 +100,10 @@ function logWorkout() {
         let radioOptions = document.getElementsByName('workout-difficulty');
         for(let i=0; i<radioOptions.length; i++){
             if(radioOptions[i].checked){
-                console.log(difficulty = radioOptions[i].value);
+                difficulty = radioOptions[i].value;
             };
         };
-        console.log(difficulty);
+        // console.log(difficulty);
     };
     checkRadio();
     
@@ -121,10 +121,10 @@ function logWorkout() {
     const log = new Workout(name, sets, reps, duration, difficulty, date);
 
     currentWeekLog.push(log);
-    console.log(currentWeekLog);
+    // console.log(currentWeekLog);
     displayInfo(currentWeekLog, 'current-log');
-    calculateTotals(name, sets, reps);
-    console.log("fail");
+    calculateTotals(name, sets, reps, lifetimeStats);
+    displayTotals(lifetimeStats, 'lifetime-totals');
 }
 
 // future function for user to add additional workouts to available selection
@@ -138,26 +138,26 @@ function addNewWorkout(){
 
 // total is not going to be inclusive of hard coded lastWeekStats since it relys on new information
 // obtained from submitting new workout logs.
-function calculateTotals(workout, sets, reps){
-    let lifetimeLog = {
-        workout: workout,
-        total: sets * reps
+function calculateTotals(name, sets, reps, exerciseLog){
+    let newWorkout = {
+        workout: name,
+        total: sets * reps,
     };
-    if(lifetimeStats.length === 0){
-        lifetimeStats.push(lifetimeLog);
-        console.log(lifetimeStats);
+    if(exerciseLog.length === 0){
+        exerciseLog.push(newWorkout);
+        return console.log("Now there's something in the array!", exerciseLog)
     }else{
-        for(i=0;i<lifetimeStats.length;i++){
-            if(!(lifetimeStats[i].workout === lifetimeLog.workout)){
-                lifetimeStats.push(lifetimeLog);
-                console.log(lifetimeStats);
-            }else if(lifetimeStats[i].workout === lifetimeLog.workout){
-                lifetimeStats[i].total += lifetimeLog.total;
-                console.log(lifetimeStats[i].total);
+        let workoutsInArray = [];
+        for(i=0; i<exerciseLog.length; i++){
+            workoutsInArray.push(exerciseLog[i].workout);
+            if(exerciseLog[i].workout === newWorkout.workout){
+                return exerciseLog[i].total += newWorkout.total;
             };
         };
+        if(!workoutsInArray.includes(newWorkout.workout)){
+            return exerciseLog.push(newWorkout);
+        };
     };
-    displayTotals(lifetimeStats, 'lifetime-totals');
 };
 
 document.addEventListener('DOMContentLoaded', () => {
