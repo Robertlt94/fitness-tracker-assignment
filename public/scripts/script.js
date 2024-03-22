@@ -19,13 +19,6 @@ class Workout{
     }
 }
 
-class WorkoutStats extends Workout{
-    constructor(name, total){
-        super(name);
-        this.total = total;
-    }
-}
-
 // Stretch Goal: Optionally, include a structure to track daily or weekly goals and accomplishments.
 let lastWeekLog = [];
 
@@ -40,7 +33,6 @@ const sunday = new Workout('Jumping Jacks', '5', '10', '60', 'Easy');
 lastWeekLog.push(
     monday, tuesday, wednesday, thursday, friday, saturday, sunday
 );
-
 
 // function to determine if it's a new week. If week has not changed, do nothing. 
 // If new week, clear data in lastWeekLog, concat currentWeekLog with lastWeekLog, clear currentWeekLog, append new info to DOM
@@ -71,7 +63,7 @@ function weekCheck(){
 }
 
 
-let lifeTimeStats = [];
+let lifetimeStats = [];
 
 // - Create at least two functions to calculate summaries from the exercise log data, such as total workouts completed, total duration, or calories burned (if applicable). Keep in mind these numbers will later need to be displayed.
 
@@ -86,11 +78,12 @@ function displayInfo(array, elementId) {
 }
 
 function displayTotals(array, elementId){
+    console.log('in displayTotals')
     let update = document.getElementById(elementId);
     update.innerHTML = '';
     array.forEach(arrayList => {
         let arrayListItem = document.createElement('li');
-        arrayListItem.textContent = `${arrayList.workout}: ${arrayList.total}.`;
+        arrayListItem.textContent = `${arrayList.workout}: ${arrayList.total}`;
         update.appendChild(arrayListItem);
     });
 }
@@ -128,9 +121,10 @@ function logWorkout() {
     const log = new Workout(name, sets, reps, duration, difficulty, date);
 
     currentWeekLog.push(log);
-    // console.log(currentWeekLog);
-    displayInfo(currentWeekLog, 'current-log')
-    calculateTotals(log);
+    console.log(currentWeekLog);
+    displayInfo(currentWeekLog, 'current-log');
+    calculateTotals(name, sets, reps);
+    console.log("fail");
 }
 
 // future function for user to add additional workouts to available selection
@@ -142,39 +136,38 @@ function addNewWorkout(){
 // Create at least two functions to calculate summaries from the exercise log data, such as total workouts completed, 
 //total duration, or calories burned (if applicable). Keep in mind these numbers will later need to be displayed.
 
-
 // total is not going to be inclusive of hard coded lastWeekStats since it relys on new information
 // obtained from submitting new workout logs.
-function calculateTotals(newLog){
-    // console.log(
-    //     array.reduce((total, time) => total+time.sets, 0),
-    //     array.reduce((total, time) => total+time.reps, 0),
-    //     array.reduce((total, time) => total+time.duration, 0),
-    // );
-    for(i=0; i<lifeTimeStats.length; i++){
-        if(!lifeTimeStats[i].name.includes(newLog.name)){
-            let firstTime = newLog.sets * newLog.reps;
-            console.log(firstTime);
-            const workoutStat = new WorkoutStats(newLog.name, firstTime)
-            console.log(workoutStat);
-            lifeTimeStats.push(workoutStat);
-            console.log()
-        }else if(lifeTimeStats[i].name === newLog.name){
-            let newAddition = newLog.sets * newLog.reps;
-            console.log(newAddition);
-            lifeTimeStats[i].total += newAddition;
+function calculateTotals(workout, sets, reps){
+    let lifetimeLog = {
+        workout: workout,
+        total: sets * reps
+    };
+    if(lifetimeStats.length === 0){
+        lifetimeStats.push(lifetimeLog);
+        console.log(lifetimeStats);
+    }else{
+        for(i=0;i<lifetimeStats.length;i++){
+            if(!(lifetimeStats[i].workout === lifetimeLog.workout)){
+                lifetimeStats.push(lifetimeLog);
+                console.log(lifetimeStats);
+            }else if(lifetimeStats[i].workout === lifetimeLog.workout){
+                lifetimeStats[i].total += lifetimeLog.total;
+                console.log(lifetimeStats[i].total);
+            };
         };
     };
-    displayTotals(lifeTimeStats, 'lifetime-totals');
+    displayTotals(lifetimeStats, 'lifetime-totals');
 };
 
 document.addEventListener('DOMContentLoaded', () => {
     
     displayInfo(currentWeekLog, 'current-log');
     displayInfo(lastWeekLog, 'last-week-stats');
+    displayTotals(lifetimeStats, 'lifetime-totals');
 
     document.getElementById('log-this-workout').onclick = () => {
-        weekCheck();
-        calculateTotals()
+        // weekCheck();
+        logWorkout();
     };
 });
